@@ -1,70 +1,50 @@
 import { getVideos } from "@/actions/getVideos";
-
-interface Video {
-  id: string;
-  title: string;
-  description: string;
-  thumbnail: string;
-  isShort: boolean;
-}
+import { getPlaylists } from "@/actions/getPlaylists";
+import TutorialsClient from "@/components/tutorials/tutorials-client";
+import { Youtube, ArrowRight, Map as MapIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default async function Tutorials() {
-  const videos: Video[] = await getVideos(); // ✅ Fetch directly inside the server component
-
-  // Separate Shorts and Regular Videos
-  const shorts = videos.filter((video: Video) => video.isShort);
-  const regularVideos = videos.filter((video: Video) => !video.isShort);
+  const [videos, playlists] = await Promise.all([
+    getVideos("date"),
+    getPlaylists()
+  ]);
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
-      <h1 className="text-4xl font-bold text-center mb-8 text">📚 Tutorials</h1>
+    <div className="min-h-screen bg-background relative overflow-hidden font-outfit">
+      {/* Background Blobs */}
+      <div className="absolute top-0 right-0 h-[600px] w-[600px] rounded-full bg-primary/5 blur-[120px] -z-10 animate-pulse" />
+      <div className="absolute top-[20%] left-[-10%] h-[500px] w-[500px] rounded-full bg-red-500/5 blur-[100px] -z-10" />
+      <div className="absolute bottom-0 right-[10%] h-[400px] w-[400px] rounded-full bg-purple-500/5 blur-[100px] -z-10" />
 
-      {/* Shorts Section */}
-      {shorts.length > 0 && (
-        <section className="mb-10">
-          <h2 className="text-3xl font-semibold mb-4 text-white">🎥 YouTube Shorts</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {shorts.map((video: Video) => (
-              <div key={video.id} className="bg-white border rounded-xl shadow-lg p-3 transition-transform hover:scale-105">
-                <div className="relative w-full aspect-[9/16] rounded-lg overflow-hidden">
-                  <iframe
-                    src={`https://www.youtube.com/embed/${video.id}?autoplay=0&mute=1`}
-                    title={video.title}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="w-full h-full"
-                  ></iframe>
-                </div>
-                <h3 className="text-lg font-semibold mt-2 text-gray-800">{video.title}</h3>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
+      <main className="container mx-auto px-4 pt-32 sm:px-6 lg:px-8">
+        {/* Hero Section */}
+        <div className="max-w-4xl mx-auto text-center mb-20 space-y-6">
+           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-500 text-sm font-bold animate-in fade-in slide-in-from-bottom-4 duration-700">
+              <Youtube className="h-4 w-4" />
+              <span>Official Video Library</span>
+           </div>
+           <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100 italic">
+              Level Up Your <span className="gradient-text">Skills</span>
+           </h1>
+           <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
+              Deep-dive tutorials, quick tips, and comprehensive learning paths curated for modern developers. From zero to hero.
+           </p>
+            <div className="flex items-center justify-center gap-4 pt-6 animate-in fade-in slide-in-from-bottom-10 duration-700 delay-300">
+              <Link href="/tutorials/roadmaps">
+                <Button className="rounded-full px-10 h-14 text-lg bg-primary text-white font-bold shadow-xl shadow-primary/20 hover:shadow-primary/40 transition-all gap-3 group">
+                   <Youtube className="h-5 w-5" />
+                   View Roadmaps
+                   <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </Link>
+            </div>
+         </div>
 
-      {/* Regular Videos Section */}
-      {regularVideos.length > 0 && (
-        <section>
-          <h2 className="text-3xl font-semibold mb-4 text-white-800">📺 Full-Length Videos</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {regularVideos.map((video: Video) => (
-              <div key={video.id} className="bg-white border rounded-xl shadow-lg p-4 transition-transform hover:scale-105">
-                <div className="relative w-full aspect-video rounded-lg overflow-hidden">
-                  <iframe
-                    src={`https://www.youtube.com/embed/${video.id}`}
-                    title={video.title}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="w-full h-full"
-                  ></iframe>
-                </div>
-                <h3 className="text-xl font-semibold mt-4 text-gray-800">{video.title}</h3>
-                <p className="text-gray-600 text-sm mt-2 line-clamp-2">{video.description}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
+        {/* Client Side Filters and Content */}
+        <TutorialsClient initialVideos={videos} playlists={playlists} />
+      </main>
     </div>
   );
 }

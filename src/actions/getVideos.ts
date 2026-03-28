@@ -1,9 +1,9 @@
 "use server";
 
-export async function getVideos() {
+export async function getVideos(order: "date" | "viewCount" | "relevance" = "date") {
   const API_KEY = process.env.NEXT_PUBLIC_YOUTUBE_API_KEY;
   const CHANNEL_ID = process.env.NEXT_PUBLIC_YOUTUBE_CHANNEL_ID;
-  const MAX_RESULTS = 30;
+  const MAX_RESULTS = 50;
 
   if (!API_KEY || !CHANNEL_ID) {
     console.error("❌ Missing API_KEY or CHANNEL_ID");
@@ -11,9 +11,9 @@ export async function getVideos() {
   }
 
   try {
-    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&channelId=${CHANNEL_ID}&maxResults=${MAX_RESULTS}&key=${API_KEY}`;
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&channelId=${CHANNEL_ID}&maxResults=${MAX_RESULTS}&order=${order}&key=${API_KEY}`;
 
-    const res = await fetch(url);
+    const res = await fetch(url, { next: { revalidate: 3600 } }); // Cache for 1 hour
     const data: YoutubeAPIResponse = await res.json();
 
     if (!res.ok || data.error) {

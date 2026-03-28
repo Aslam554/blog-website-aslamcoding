@@ -1,14 +1,11 @@
 "use server"
 
-import { prisma } from "@/lib/prisma";
+import { db } from "@/db";
+import { articles } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
  
 export const deleteArticle = async (articleId: string) => {
-
-    await prisma.articles.delete({
-        where: {
-            id: articleId,
-        },
-    });
+    await db.delete(articles).where(eq(articles.id, articleId));
     revalidatePath("/dashboard");
 }
