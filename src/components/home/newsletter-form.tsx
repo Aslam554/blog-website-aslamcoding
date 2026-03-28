@@ -33,7 +33,7 @@ export default function NewsletterForm() {
         setMessage(result.error || "Failed to subscribe");
         toast.error(result.error);
       }
-    } catch (err) {
+    } catch {
       setStatus("error");
       setMessage("Something went wrong. Please try again.");
       toast.error("Internal server error");
@@ -64,7 +64,7 @@ export default function NewsletterForm() {
               Level Up Your <span className="text-primary italic">Dev Game</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto font-medium">
-              Get the latest "zero-to-hero" tutorials, coding tips, and industry insights delivered straight to your inbox. No spam, just pure alpha.
+              Get the latest &quot;zero-to-hero&quot; tutorials, coding tips, and industry insights delivered straight to your inbox. No spam, just pure alpha.
             </p>
           </div>
 

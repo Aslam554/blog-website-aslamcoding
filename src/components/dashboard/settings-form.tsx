@@ -26,8 +26,8 @@ export default function SettingsForm({ user }: SettingsFormProps) {
             try {
                 await updateUser(formData);
                 toast.success("Profile updated successfully");
-            } catch (error: any) {
-                toast.error(error.message || "Failed to update profile");
+            } catch (error: unknown) {
+                toast.error((error as { message?: string }).message || "Failed to update profile");
             }
         });
     };

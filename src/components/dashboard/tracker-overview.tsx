@@ -2,7 +2,6 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Code2, Globe, Laptop, Calendar, Trash2, Layout } from "lucide-react";
 import { format } from "date-fns";
 import AddLogModal from "./add-log-modal";
@@ -26,7 +25,7 @@ interface Tracker {
   logs: Log[];
 }
 
-export default function TrackerOverview({ trackers }: { trackers: any[] }) {
+export default function TrackerOverview({ trackers }: { trackers: Tracker[] }) {
   if (trackers.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-24 glass-card rounded-[40px] border-none bg-background/40 backdrop-blur-xl">
@@ -35,7 +34,7 @@ export default function TrackerOverview({ trackers }: { trackers: any[] }) {
         </div>
         <h2 className="text-3xl font-outfit font-bold mb-2">No Trackers Found</h2>
         <p className="text-muted-foreground font-medium text-lg max-w-md text-center">
-          You haven't created any coding trackers yet. Start by creating one to stay consistent on your journey!
+          You haven&apos;t created any coding trackers yet. Start by creating one to stay consistent on your journey!
         </p>
       </div>
     );
@@ -44,8 +43,8 @@ export default function TrackerOverview({ trackers }: { trackers: any[] }) {
   return (
     <div className="space-y-12">
       {trackers.map((tracker, idx) => {
-        const totalLeetCode = tracker.logs.reduce((sum: number, log: any) => sum + log.leetcodeCount, 0);
-        const totalCodeforces = tracker.logs.reduce((sum: number, log: any) => sum + log.codeforcesCount, 0);
+        const totalLeetCode = tracker.logs.reduce((sum: number, log: Log) => sum + log.leetcodeCount, 0);
+        const totalCodeforces = tracker.logs.reduce((sum: number, log: Log) => sum + log.codeforcesCount, 0);
         const logCount = tracker.logs.length;
 
         return (
@@ -102,7 +101,7 @@ export default function TrackerOverview({ trackers }: { trackers: any[] }) {
                             <p className="text-muted-foreground font-bold">No progress logged yet. Put in some work and log it!</p>
                         </div>
                     ) : (
-                        tracker.logs.map((log: any) => (
+                        tracker.logs.map((log: Log) => (
                             <div key={log.id} className="glass-card rounded-[32px] p-6 border-none bg-background/40 backdrop-blur-xl shadow-xl flex flex-col md:flex-row gap-6 relative group overflow-hidden">
                                 <div className="absolute top-0 right-0 p-10 bg-primary/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
                                 
@@ -144,7 +143,7 @@ export default function TrackerOverview({ trackers }: { trackers: any[] }) {
 
                                     {log.description && (
                                         <p className="text-muted-foreground text-sm font-medium leading-relaxed italic border-l-2 border-primary/20 pl-4 py-1">
-                                            "{log.description}"
+                                            &quot;{log.description}&quot;
                                         </p>
                                     )}
                                 </div>

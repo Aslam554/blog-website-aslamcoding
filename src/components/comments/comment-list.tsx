@@ -1,16 +1,30 @@
 import React from "react";
 import { CommentItem } from "./comment-item";
 
+type CommentWithAuthor = {
+  id: string;
+  body: string;
+  parentId: string | null;
+  createdAt: Date;
+  author: {
+    name: string | null;
+    email: string;
+    imageUrl: string | null;
+  };
+  likes: { userId: string }[];
+};
+
 type CommentListProps = {
-  comments: any[];
+  comments: CommentWithAuthor[];
   articleId: string;
   currentUserId?: string;
 };
 
 const CommentList: React.FC<CommentListProps> = ({ comments, articleId, currentUserId }) => {
+  type CommentWithReplies = CommentWithAuthor & { replies: CommentWithReplies[] };
   // Organize comments into a hierarchy
-  const commentMap = new Map();
-  const rootComments: any[] = [];
+  const commentMap = new Map<string, CommentWithReplies>();
+  const rootComments: CommentWithReplies[] = [];
 
   comments.forEach((comment) => {
     commentMap.set(comment.id, { ...comment, replies: [] });
@@ -18,8 +32,13 @@ const CommentList: React.FC<CommentListProps> = ({ comments, articleId, currentU
 
   comments.forEach((comment) => {
     const commentWithReplies = commentMap.get(comment.id);
+    if (!commentWithReplies) return;
+
     if (comment.parentId && commentMap.has(comment.parentId)) {
-      commentMap.get(comment.parentId).replies.push(commentWithReplies);
+      const parent = commentMap.get(comment.parentId);
+      if (parent) {
+        parent.replies.push(commentWithReplies);
+      }
     } else {
       rootComments.push(commentWithReplies);
     }

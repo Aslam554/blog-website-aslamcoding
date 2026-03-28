@@ -14,7 +14,7 @@ type CommentFormProps = {
 
 const CommentForm: React.FC<CommentFormProps> = ({ articleId, parentId, onSuccess, userImage }) => {
   const [formState, action, isPending] = useActionState(
-    async (prevState: any, formData: FormData) => {
+    async (prevState: { errors: Record<string, string | string[]> }, formData: FormData) => {
       if (parentId) {
         formData.append("parentId", parentId);
       }

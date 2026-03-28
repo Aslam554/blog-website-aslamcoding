@@ -7,7 +7,7 @@ import { toggleLike } from "@/actions/like-toggle";
 
 type LikeButtonProps = {
   articleId: string;
-  likes: any[];
+  likes: { userId: string | null }[];
   isLiked: boolean;
 };
 

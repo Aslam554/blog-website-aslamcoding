@@ -3,7 +3,7 @@
 import { db } from "@/db";
 import { trackers, trackerLogs } from "@/db/schema";
 import { auth } from "@/auth";
-import { eq, desc, sql } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
 export async function createTracker(formData: FormData) {
@@ -82,7 +82,7 @@ export async function deleteTrackerLog(id: string) {
     await db.delete(trackerLogs).where(eq(trackerLogs.id, id));
     revalidatePath("/dashboard/tracker");
     return { success: "Log deleted" };
-  } catch (error) {
+  } catch {
     return { error: "Failed to delete log" };
   }
 }

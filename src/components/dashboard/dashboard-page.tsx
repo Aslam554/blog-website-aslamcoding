@@ -150,7 +150,7 @@ export async function BlogDashboard() {
                 Last 30 days <Clock className="h-4 w-4" />
               </Button>
            </div>
-           <RecentArticles articles={recentArticles as any} />
+           <RecentArticles articles={recentArticles} />
         </div>
 
         {/* Sidebar Mini-Stats Column */}

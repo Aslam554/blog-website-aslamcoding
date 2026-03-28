@@ -19,9 +19,9 @@ type RecentArticlesProps = {
     id: string;
     title: string;
     createdAt: Date;
-    comments: any[];
+    comments: { id: string }[];
     author: {
-      name: string;
+      name: string | null;
       email: string;
       imageUrl: string | null;
     };

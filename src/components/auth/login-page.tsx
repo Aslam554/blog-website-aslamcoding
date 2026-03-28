@@ -3,7 +3,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Github, Mail, Chrome, ArrowRight, ShieldCheck, Zap, Globe } from "lucide-react";
+import { Github, Chrome, ArrowRight, ShieldCheck, Zap, Globe } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -126,7 +126,7 @@ export default function LoginPage() {
 
             <CardFooter className="pb-12 pt-4 px-8 flex justify-center">
                 <p className="text-sm font-bold text-muted-foreground">
-                    Don't have an account? <Link href="/signup" className="text-primary hover:underline italic">Create One</Link>
+                    Don&apos;t have an account? <Link href="/signup" className="text-primary hover:underline italic">Create One</Link>
                 </p>
             </CardFooter>
           </Card>

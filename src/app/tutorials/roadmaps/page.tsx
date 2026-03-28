@@ -4,8 +4,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import { 
   Compass, 
-  ChevronRight, 
-  Map as MapIcon, 
   Sparkles, 
   Rocket, 
   Target, 
@@ -67,7 +65,7 @@ export default function RoadmapsPage() {
             transition={{ delay: 0.1 }}
             className="text-xl text-muted-foreground max-w-2xl mx-auto font-medium"
           >
-            Don't just code. Build a structured path to mastery with our battle-tested curriculum designed for modern engineering.
+            Don&apos;t just code. Build a structured path to mastery with our battle-tested curriculum designed for modern engineering.
           </motion.p>
         </div>
 
@@ -106,7 +104,7 @@ export default function RoadmapsPage() {
                 <div key={idx} className="glass p-8 rounded-[32px] border border-white/5 hover:border-primary/20 transition-all group cursor-not-allowed">
                     <div className="flex items-start justify-between mb-6">
                         <div className="p-4 rounded-2xl bg-muted/50 text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-all">
-                            {React.cloneElement(card.icon as React.ReactElement<any>, { className: "h-6 w-6" })}
+                            {React.cloneElement(card.icon as React.ReactElement<{ className?: string }>, { className: "h-6 w-6" })}
                         </div>
                         <span className="text-[10px] font-bold text-muted-foreground/40 uppercase tracking-widest">{card.tag}</span>
                     </div>

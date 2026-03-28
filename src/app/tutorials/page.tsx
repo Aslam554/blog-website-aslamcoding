@@ -1,7 +1,7 @@
 import { getVideos } from "@/actions/getVideos";
 import { getPlaylists } from "@/actions/getPlaylists";
 import TutorialsClient from "@/components/tutorials/tutorials-client";
-import { Youtube, ArrowRight, Map as MapIcon } from "lucide-react";
+import { Youtube, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 

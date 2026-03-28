@@ -39,7 +39,7 @@ const page: React.FC<ArticleDetailPageProps> = async ({ params }) => {
 
   return (
     <div>
-      <ArticleDetailPage article={article as any} />
+      <ArticleDetailPage article={article} />
     </div>
   );
 };

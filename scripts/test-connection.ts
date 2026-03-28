@@ -1,6 +1,6 @@
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import * as schema from "./src/db/schema";
+import * as schema from "../src/db/schema";
 import "dotenv/config";
 
 // Remove pgbouncer=true and change host if needed for testing

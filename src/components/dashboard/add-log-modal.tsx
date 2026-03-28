@@ -34,7 +34,7 @@ export default function AddLogModal({ trackerId }: { trackerId: string }) {
       } else {
         toast.error(res.error);
       }
-    } catch (err) {
+    } catch {
       toast.error("An error occurred");
     } finally {
       setLoading(false);
@@ -127,7 +127,7 @@ export default function AddLogModal({ trackerId }: { trackerId: string }) {
                   </motion.div>
                   <div className="space-y-2">
                     <h3 className="text-3xl font-outfit font-bold tracking-tight">Progress Saved!</h3>
-                    <p className="text-muted-foreground font-medium text-lg italic">"Consistency is the key to mastery."</p>
+                    <p className="text-muted-foreground font-medium text-lg italic">&quot;Consistency is the key to mastery.&quot;</p>
                   </div>
                 </div>
               </motion.div>

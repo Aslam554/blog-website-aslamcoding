@@ -4,7 +4,6 @@ import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { PlaySquare, Layers, ArrowRight, Code2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 interface Playlist {
   id: string;

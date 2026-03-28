@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Search, Menu, X, LogOut, LayoutDashboard, Settings, User as UserIcon } from "lucide-react";
+import { Menu, X, LogOut, LayoutDashboard, Settings } from "lucide-react";
 import { ModeToggle } from "../../dark-mode";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";

@@ -7,7 +7,18 @@ import Image from "next/image";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
 
 interface ArticleCardProps {
-  article: any;
+  article: {
+    id: string;
+    title: string;
+    content: string | null;
+    category: string;
+    featuredImage: string | null;
+    createdAt: Date;
+    author: {
+      name: string | null;
+      imageUrl: string | null;
+    };
+  };
   index: number;
 }
 
@@ -42,14 +53,12 @@ export function ArticleCard({ article, index }: ArticleCardProps) {
               <Avatar className="h-8 w-8 border border-border/50">
                 <AvatarImage src={article.author.imageUrl as string} />
                 <AvatarFallback className="bg-primary/10 text-primary text-xs font-bold">
-                  {article.author.name.charAt(0)}
+                  {(article.author.name || "A").charAt(0)}
                 </AvatarFallback>
               </Avatar>
-              <div className="flex flex-col">
                 <span className="text-sm font-medium text-foreground/80 group-hover:text-primary transition-colors">
-                  {article.author.name}
+                  {article.author.name ?? "Anonymous"}
                 </span>
-              </div>
             </div>
 
             {/* Article Title */}

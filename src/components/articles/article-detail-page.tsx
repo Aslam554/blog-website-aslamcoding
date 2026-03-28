@@ -4,7 +4,7 @@ import { MessageCircle, Calendar, Clock, Share2, Bookmark } from "lucide-react";
 import CommentForm from "../comments/comment-form";
 import CommentList from "../comments/comment-list";
 import { db } from "@/db";
-import { comments as commentsTable, likes as likesTable, users, articles as articlesTable } from "@/db/schema";
+import { comments as commentsTable, likes as likesTable, articles as articlesTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import LikeButton from "./actions/like-button";
 import { auth } from "@/auth";
@@ -17,7 +17,6 @@ import BackToTop from "../back-to-top";
 import { cn } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-// @ts-ignore
 import rehypeRaw from "rehype-raw";
 
 type ArticleDetailPageProps = {
@@ -29,7 +28,7 @@ type ArticleDetailPageProps = {
     featuredImage: string;
     createdAt: Date;
     author: {
-      name: string;
+      name: string | null;
       email: string;
       imageUrl: string | null;
     };
@@ -101,11 +100,11 @@ export async function ArticleDetailPage({ article }: ArticleDetailPageProps) {
                <div className="flex items-center gap-4">
                   <Avatar className="h-12 w-12 border-2 border-background shadow-md">
                     <AvatarImage src={article.author.imageUrl as string} />
-                    <AvatarFallback className="bg-primary/10 text-primary font-bold">{article.author.name.slice(0, 2).toUpperCase()}</AvatarFallback>
+                    <AvatarFallback className="bg-primary/10 text-primary font-bold">{(article.author.name || "Anonymous").slice(0, 2).toUpperCase()}</AvatarFallback>
                   </Avatar>
                   <div>
                     <p className="font-outfit font-semibold text-foreground text-lg leading-none mb-1">
-                      {article.author.name}
+                      {article.author.name ?? "Anonymous"}
                     </p>
                     <p className="text-sm text-muted-foreground">
                       Principal Content Creator
@@ -167,7 +166,7 @@ export async function ArticleDetailPage({ article }: ArticleDetailPageProps) {
 
           {/* Interaction Section */}
           <div className="flex items-center gap-6 mb-16 py-8 border-y border-border/50">
-             <LikeButton articleId={article.id} likes={likes as any} isLiked={isLiked} />
+             <LikeButton articleId={article.id} likes={likes} isLiked={isLiked} />
              <div className="flex items-center gap-2 text-muted-foreground group cursor-pointer hover:text-foreground transition-colors">
                 <MessageCircle className="h-6 w-6 transition-transform group-hover:scale-110" />
                 <span className="font-bold text-foreground">{comments.length} Comments</span>
@@ -191,7 +190,7 @@ export async function ArticleDetailPage({ article }: ArticleDetailPageProps) {
                
                <div className="mt-16">
                   <CommentList 
-                    comments={comments as any} 
+                    comments={comments} 
                     articleId={article.id} 
                     currentUserId={userId || undefined}
                   />
@@ -201,7 +200,6 @@ export async function ArticleDetailPage({ article }: ArticleDetailPageProps) {
         </article>
       </main>
       <ArticleChat 
-        articleId={article.id} 
         articleTitle={article.title} 
         articleContent={article.content} 
       />

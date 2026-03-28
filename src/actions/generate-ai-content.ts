@@ -44,8 +44,8 @@ export async function generateAIContent(prompt: string, type: "content" | "title
 
     const data = await response.json();
     return data.choices[0].message.content;
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("AI Generation Error:", error);
-    throw new Error(error.message || "Something went wrong while generating content.");
+    throw new Error(error instanceof Error ? error.message : "Something went wrong while generating content.");
   }
 }

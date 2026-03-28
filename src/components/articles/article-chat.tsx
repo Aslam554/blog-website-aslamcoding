@@ -10,7 +10,6 @@ import {
   Loader2, 
   Bot, 
   User,
-  ChevronDown,
   RefreshCw
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -20,7 +19,6 @@ import { chatWithArticle } from "@/actions/chat-article";
 import { toast } from "sonner";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-// @ts-ignore
 import rehypeRaw from "rehype-raw";
 
 interface Message {
@@ -29,12 +27,11 @@ interface Message {
 }
 
 interface ArticleChatProps {
-  articleId: string;
   articleTitle: string;
   articleContent: string;
 }
 
-export default function ArticleChat({ articleId, articleTitle, articleContent }: ArticleChatProps) {
+export default function ArticleChat({ articleTitle, articleContent }: ArticleChatProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
@@ -59,8 +56,8 @@ export default function ArticleChat({ articleId, articleTitle, articleContent }:
     try {
       const response = await chatWithArticle(articleContent, userMessage, messages.slice(-5));
       setMessages((prev) => [...prev, { role: "assistant", content: response }]);
-    } catch (error: any) {
-      toast.error(error.message || "Failed to get AI response");
+    } catch (error: unknown) {
+      toast.error((error as { message?: string }).message || "Failed to get AI response");
     } finally {
       setIsLoading(false);
     }
@@ -114,7 +111,7 @@ export default function ArticleChat({ articleId, articleTitle, articleContent }:
                     <Bot className="h-12 w-12 text-primary" />
                     <div className="space-y-1">
                         <p className="font-bold">Chat with this Article</p>
-                        <p className="text-xs max-w-[200px]">Ask me anything about "{articleTitle}" and I'll help you out!</p>
+                        <p className="text-xs max-w-[200px]">Ask me anything about &quot;{articleTitle}&quot; and I&apos;ll help you out!</p>
                     </div>
                   </div>
                 )}

@@ -1,24 +1,26 @@
 "use client";
-import { FormEvent, startTransition, useActionState, useState } from "react";
+import React, { FormEvent, startTransition, useActionState, useState } from "react";
 import "react-quill-new/dist/quill.snow.css";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { updateArticles } from "@/actions/update-article";
 import { deleteArticle } from "@/actions/delete-article";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Image as ImageIcon, Video, Send, X, Wand2, Loader2, PenTool, Save, Trash2 } from "lucide-react";
+import { Sparkles, Image as ImageIcon, Send, Wand2, Loader2, PenTool, Save, Trash2 } from "lucide-react";
 import { generateAIContent } from "@/actions/generate-ai-content";
 import { toast } from "sonner";
 
 const ReactQuill = dynamic(
   async () => {
     const { default: RQ } = await import("react-quill-new");
-    return ({ ...props }: any) => <RQ {...props} />;
+    const QuillComponent = (props: React.ComponentProps<typeof RQ>) => <RQ {...props} />;
+    QuillComponent.displayName = "ReactQuillEditor";
+    return QuillComponent;
   },
   { ssr: false }
 );
@@ -63,8 +65,8 @@ const EditArticlePage: React.FC<EditPropsPage> = ({ article }) => {
             await deleteArticle(article.id);
             toast.success("Article deleted successfully");
             router.push("/dashboard");
-        } catch (error: any) {
-            toast.error(error.message || "Failed to delete article");
+        } catch (error: unknown) {
+            toast.error(error instanceof Error ? error.message : "Failed to delete article");
         } finally {
             setIsDeleting(false);
         }
@@ -92,8 +94,8 @@ const EditArticlePage: React.FC<EditPropsPage> = ({ article }) => {
         setAiPrompt("");
         toast.success("Content generated successfully!");
       }
-    } catch (error: any) {
-      toast.error(error.message || "Failed to generate content");
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : "Failed to generate content");
     } finally {
       setIsGenerating(false);
     }
@@ -116,7 +118,7 @@ const EditArticlePage: React.FC<EditPropsPage> = ({ article }) => {
                     Refine Your <span className="gradient-text">Creation</span>
                 </h1>
                 <p className="text-muted-foreground text-lg font-medium">
-                    Editing: <span className="text-foreground italic">"{article.title}"</span>
+                    Editing: <span className="text-foreground italic">&quot;{article.title}&quot;</span>
                 </p>
             </div>
             <div className="flex items-center gap-3">

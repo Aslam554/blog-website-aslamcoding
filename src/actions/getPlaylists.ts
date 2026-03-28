@@ -21,7 +21,15 @@ export async function getPlaylists() {
       return [];
     }
 
-    return data.items.map((item: any) => ({
+    return (data.items as {
+      id: string;
+      snippet: {
+        title: string;
+        description: string;
+        thumbnails?: { medium?: { url: string } };
+      };
+      contentDetails?: { itemCount: number };
+    }[]).map((item) => ({
       id: item.id,
       title: item.snippet.title,
       description: item.snippet.description,

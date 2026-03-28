@@ -2,8 +2,8 @@
 
 import { auth } from "@/auth";
 import { db } from "@/db";
-import { comments, articles } from "@/db/schema";
-import { eq, and } from "drizzle-orm";
+import { comments } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
 export async function deleteComment(commentId: string) {

@@ -4,16 +4,13 @@ import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Play,
-  Youtube,
   Clock,
   TrendingUp,
   Layers,
   Search,
-  Filter,
   ExternalLink,
   ChevronRight,
   X,
-  Map as MapIcon
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -263,7 +260,7 @@ export default function TutorialsClient({ initialVideos, playlists }: TutorialsC
               </div>
               <h3 className="text-3xl font-outfit font-bold">No results found</h3>
               <p className="text-muted-foreground max-w-md mx-auto">
-                We couldn't find any videos or playlists matching your search. Try different keywords or check out our full collection.
+                We couldn&apos;t find any videos or playlists matching your search. Try different keywords or check out our full collection.
               </p>
               <Button variant="outline" onClick={() => {setSearchQuery(""); setActiveFilter("all");}} className="rounded-full px-8 h-12">
                  Clear Filters

@@ -29,8 +29,8 @@ export default function DeleteCommentButton({ commentId }: DeleteCommentButtonPr
                 await deleteComment(commentId);
                 toast.success("Comment deleted successfully");
                 setOpen(false);
-            } catch (error: any) {
-                toast.error(error.message || "Failed to delete comment");
+            } catch (error: unknown) {
+                toast.error((error as { message?: string }).message || "Failed to delete comment");
             }
         });
     };

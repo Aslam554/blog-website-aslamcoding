@@ -1,7 +1,7 @@
 import React from "react";
 import TrackerOverview from "@/components/dashboard/tracker-overview";
 import { getTrackers } from "@/actions/tracker";
-import { TrendingUp, Plus } from "lucide-react";
+import { TrendingUp } from "lucide-react";
 import CreateTrackerModal from "@/components/dashboard/create-tracker-modal";
 
 export default async function TrackerPage() {

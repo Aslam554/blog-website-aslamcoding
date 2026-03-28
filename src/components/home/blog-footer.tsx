@@ -1,6 +1,4 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Mail, Linkedin, Github, Twitter, ExternalLink, Heart } from "lucide-react";
+import { Mail, Linkedin, Github, Twitter, Heart } from "lucide-react";
 import Link from "next/link";
 
 export function BlogFooter() {

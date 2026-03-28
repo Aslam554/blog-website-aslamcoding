@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { Play, ChevronLeft, ChevronRight, Youtube } from "lucide-react";
 import { Button } from "@/components/ui/button";
 

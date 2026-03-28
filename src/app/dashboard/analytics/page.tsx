@@ -1,12 +1,11 @@
 import { auth } from "@/auth";
 import { db } from "@/db";
 import { articles, comments } from "@/db/schema";
-import { eq, count, desc, gte, sql, and } from "drizzle-orm";
+import { eq, count, gte, and } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { TrendingUp, Users, Clock, Eye, BarChart3, ArrowUpRight, Target, Zap, Waves } from "lucide-react";
-import Link from "next/link";
+import { TrendingUp, Users, Eye, BarChart3, ArrowUpRight, Target, Zap, Waves } from "lucide-react";
 import React from "react";
 
 export default async function DashboardAnalyticsPage() {
@@ -144,7 +143,7 @@ export default async function DashboardAnalyticsPage() {
                </div>
                
                <p className="text-sm font-medium opacity-80 leading-relaxed italic">
-                 "You are on track to exceed last month's milestone. Your engagement is up by 18.4%."
+                 &quot;You are on track to exceed last month&apos;s milestone. Your engagement is up by 18.4%.&quot;
                </p>
                
                <Button className="w-full h-14 rounded-2xl bg-white text-primary hover:bg-white/90 font-black shadow-xl">

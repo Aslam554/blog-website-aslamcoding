@@ -6,8 +6,6 @@ import {
   CheckCircle2, 
   Circle, 
   Clock, 
-  ArrowRight,
-  Code2,
   Database,
   Globe,
   Layout,
@@ -23,7 +21,7 @@ interface RoadmapTreeProps {
   nodes: RoadmapNode[];
 }
 
-const typeIcons = {
+const typeIcons: Record<string, React.ReactNode> = {
   frontend: <Layout className="h-4 w-4" />,
   backend: <Terminal className="h-4 w-4" />,
   database: <Database className="h-4 w-4" />,

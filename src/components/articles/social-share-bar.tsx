@@ -7,10 +7,8 @@ import {
   Linkedin, 
   MessageCircle, 
   Link as LinkIcon, 
-  Check, 
-  Share2 
+  Check
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
@@ -112,7 +110,7 @@ export default function SocialShareBar({ title, url }: SocialShareBarProps) {
               rel="noopener noreferrer"
               className="p-3 text-muted-foreground hover:text-primary transition-colors"
             >
-              {React.cloneElement(link.icon as React.ReactElement<any>, { className: "h-6 w-6" })}
+              {React.cloneElement(link.icon as React.ReactElement<{ className: string }>, { className: "h-6 w-6" })}
             </a>
           ))}
           <button

@@ -26,7 +26,7 @@ export default function CreateTrackerModal() {
       } else {
         toast.error(res.error);
       }
-    } catch (err) {
+    } catch {
       toast.error("An error occurred");
     } finally {
       setLoading(false);

@@ -2,7 +2,7 @@
 import { useState, useMemo } from "react";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Search, Tag, Calendar, User, ArrowRight } from "lucide-react";
+import { Search, Calendar, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -15,7 +15,7 @@ type SearchPageProps = {
     featuredImage: string;
     createdAt: Date;
     author: {
-      name: string;
+      name: string | null;
       email: string;
       imageUrl: string | null;
     };
@@ -117,11 +117,11 @@ export function AllArticlesPage({ articles }: SearchPageProps) {
                         <div className="flex items-center gap-3">
                           <Avatar className="h-9 w-9 border border-border/50 shadow-inner">
                             <AvatarImage src={article.author.imageUrl as string} />
-                            <AvatarFallback className="bg-primary/10 text-primary text-xs font-bold">{article.author.name?.[0]}</AvatarFallback>
+                            <AvatarFallback className="bg-primary/10 text-primary text-xs font-bold">{(article.author.name || "Anonymous")[0].toUpperCase()}</AvatarFallback>
                           </Avatar>
                           <div className="flex flex-col">
                              <span className="text-xs font-bold text-foreground">
-                                {article.author.name}
+                                {article.author.name || "Anonymous"}
                              </span>
                              <span className="text-[10px] font-medium text-muted-foreground flex items-center gap-1">
                                 <Calendar className="h-2.5 w-2.5" />
@@ -155,7 +155,7 @@ export function NoSearchResults() {
         No articles found in this category
       </h3>
       <p className="mt-3 text-muted-foreground font-medium max-w-sm">
-        We couldn't find any articles matching this category. Check back later or explore other insights!
+        We couldn&apos;t find any articles matching this category. Check back later or explore other insights!
       </p>
     </div>
   );

@@ -1,9 +1,9 @@
 import { auth } from "@/auth";
 import { db } from "@/db";
 import { articles, comments } from "@/db/schema";
-import { eq, desc } from "drizzle-orm";
+import { desc } from "drizzle-orm";
 import { redirect } from "next/navigation";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { MessageCircle, ExternalLink, Calendar, User } from "lucide-react";
@@ -56,7 +56,7 @@ export default async function DashboardCommentsPage() {
             </div>
             <h3 className="text-2xl font-bold">No comments found</h3>
             <p className="text-muted-foreground max-w-sm mx-auto">
-              Your articles haven't received any comments yet. 
+              Your articles haven&apos;t received any comments yet. 
               Share your work to start a conversation!
             </p>
             <Button asChild className="rounded-2xl mt-4 bg-primary px-8">
@@ -103,7 +103,7 @@ export default async function DashboardCommentsPage() {
 
                       <div className="p-6 rounded-2xl bg-muted/40 border border-border/50 relative">
                          <p className="text-foreground font-medium leading-relaxed italic">
-                            "{comment.body}"
+                            &quot;{comment.body}&quot;
                          </p>
                       </div>
 

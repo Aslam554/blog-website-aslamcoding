@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
-import { Heart, MessageCircle, Reply, ChevronDown, ChevronUp } from "lucide-react";
+import { Heart, Reply, ChevronDown, ChevronUp } from "lucide-react";
 import { toggleCommentLike } from "@/actions/like-comment";
 import CommentForm from "./comment-form";
 import { cn } from "@/lib/utils";
@@ -14,12 +14,12 @@ type CommentItemProps = {
     body: string;
     createdAt: Date;
     author: {
-      name: string;
+      name: string | null;
       email: string;
       imageUrl: string | null;
     };
     likes: { userId: string }[];
-    replies?: any[];
+    replies?: CommentItemProps['comment'][];
   };
   articleId: string;
   currentUserId?: string;
@@ -50,7 +50,7 @@ export const CommentItem: React.FC<CommentItemProps> = ({
         <Avatar className="h-10 w-10 border border-border/50 shadow-sm transition-transform group-hover:scale-105">
           <AvatarImage src={comment.author.imageUrl as string} />
           <AvatarFallback className="bg-primary/10 text-primary font-bold">
-            {comment.author.name.slice(0, 2).toUpperCase()}
+            {(comment.author.name || "Anonymous").slice(0, 2).toUpperCase()}
           </AvatarFallback>
         </Avatar>
 
@@ -58,7 +58,7 @@ export const CommentItem: React.FC<CommentItemProps> = ({
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="font-outfit font-bold text-foreground">
-                {comment.author.name}
+                {comment.author.name ?? "Anonymous"}
               </span>
               <span className="text-xs text-muted-foreground" suppressHydrationWarning>
                 {new Date(comment.createdAt).toLocaleDateString()}

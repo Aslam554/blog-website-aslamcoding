@@ -4,13 +4,13 @@ import "react-quill-new/dist/quill.snow.css";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import "react-quill-new/dist/quill.snow.css";
 import { createArticles } from "@/actions/create-article";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Image as ImageIcon, Video, Send, X, Wand2, Loader2, PenTool, Type, FileText } from "lucide-react";
+import { Sparkles, Image as ImageIcon, Send, X, Wand2, Loader2, Type } from "lucide-react";
 import { generateAIContent } from "@/actions/generate-ai-content";
 import { toast } from "sonner";
 import Image from "next/image";
@@ -18,7 +18,9 @@ import Image from "next/image";
 const ReactQuill = dynamic(
   async () => {
     const { default: RQ } = await import("react-quill-new");
-    return ({ ...props }: any) => <RQ {...props} />;
+    const QuillComponent = (props: React.ComponentProps<typeof RQ>) => <RQ {...props} />;
+    QuillComponent.displayName = "ReactQuillContent";
+    return QuillComponent;
   },
   { ssr: false }
 );
@@ -105,8 +107,8 @@ export function CreateArticlePage() {
         setAiBrief("");
         toast.success("AI Masterpiece generated successfully!");
       }
-    } catch (error: any) {
-      toast.error(error.message || "Failed to generate content");
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : "Failed to generate content");
     } finally {
       setIsGenerating(false);
     }
@@ -244,10 +246,11 @@ export function CreateArticlePage() {
                     animate={{ opacity: 1, scale: 1 }}
                     className="relative rounded-[32px] overflow-hidden border-4 border-primary/20 bg-muted group aspect-video max-w-2xl mx-auto"
                   >
-                    <img 
+                    <Image 
                       src={aiSuggestedImage} 
                       alt="AI Suggested" 
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8">
                        <span className="text-white font-bold flex items-center gap-2">
@@ -370,7 +373,7 @@ export function CreateArticlePage() {
                             AI Mastermind
                         </h2>
                         <p className="text-muted-foreground font-semibold text-lg max-w-sm">
-                            Just provide the context, and I'll handle the heavy lifting.
+                            Just provide the context, and I&apos;ll handle the heavy lifting.
                         </p>
                     </div>
 

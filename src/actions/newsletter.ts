@@ -27,7 +27,7 @@ export async function subscribeToNewsletter(formData: FormData) {
     });
 
     return { success: "Welcome to the squad! Check your inbox soon. ✨" };
-  } catch (error: any) {
+  } catch (error: unknown) {
     if (error instanceof z.ZodError) {
         return { error: error.errors[0].message };
     }

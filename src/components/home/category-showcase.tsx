@@ -69,7 +69,7 @@ export default function CategoryShowcase() {
                  Explore by <span className="gradient-text">Category</span>
                </h2>
                <p className="text-muted-foreground max-w-xl text-lg font-medium">
-                 Whether you're grinding LeetCode or building your first SaaS, pick a path to start learning.
+                 Whether you&apos;re grinding LeetCode or building your first SaaS, pick a path to start learning.
                </p>
             </div>
         </div>

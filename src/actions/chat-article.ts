@@ -3,7 +3,7 @@
 import { auth } from "@/auth";
 
 export async function chatWithArticle(articleContent: string, userMessage: string, history: { role: "user" | "assistant", content: string }[] = []) {
-  const session = await auth();
+  await auth();
   // We allow anonymous chat, but you could restrict it if needed.
 
   const apiKey = process.env.GROQ_API_KEY;
@@ -55,8 +55,8 @@ export async function chatWithArticle(articleContent: string, userMessage: strin
 
     const data = await response.json();
     return data.choices[0].message.content;
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("AI Chat Error:", error);
-    throw new Error(error.message || "Something went wrong while chatting.");
+    throw new Error(error instanceof Error ? error.message : "Something went wrong while chatting.");
   }
 }
